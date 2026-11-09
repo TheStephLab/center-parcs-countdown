@@ -10,18 +10,29 @@ const timers = [...document.querySelectorAll('[data-countdown]')].map(button => 
   if (!Number.isFinite(target)) throw new Error('Unknown countdown target');
   const display = button.querySelector('[data-display]');
   const ended = button.querySelector('[data-ended]');
+  const wrapper = button.parentElement;
+  const tooltip = document.getElementById(button.getAttribute('aria-describedby'));
   let pinned = false;
   let hovering = false;
+  let focused = false;
+  let dismissed = false;
+
+  function updateTooltip() {
+    tooltip.hidden = button.disabled || dismissed || !(pinned || hovering || focused);
+  }
 
   function render(now = Date.now()) {
     const countdown = getCountdown(target, now);
     display.hidden = countdown.ended;
     ended.hidden = !countdown.ended;
     button.disabled = countdown.ended;
+    updateTooltip();
     if (countdown.ended) return;
 
-    const showDays = pinned || hovering;
-    const units = getUnits(countdown, showDays);
+    tooltip.textContent = getUnits(countdown, true)
+      .map(([label, value]) => `${value} ${label}`)
+      .join(' · ');
+    const units = getUnits(countdown, false);
     display.replaceChildren(...units.map(([label, value], index) => {
       const part = document.createElement('span');
       part.className = 'timer-part';
@@ -45,19 +56,37 @@ const timers = [...document.querySelectorAll('[data-countdown]')].map(button => 
 
   button.addEventListener('click', () => {
     pinned = !pinned;
-    button.setAttribute('aria-pressed', String(pinned));
-    render();
+    dismissed = false;
+    updateTooltip();
   });
-  button.addEventListener('pointerenter', event => {
+  wrapper.addEventListener('pointerenter', event => {
     if (event.pointerType === 'mouse') {
       hovering = true;
-      render();
+      dismissed = false;
+      updateTooltip();
     }
   });
-  button.addEventListener('pointerleave', event => {
+  wrapper.addEventListener('pointerleave', event => {
     if (event.pointerType === 'mouse') {
       hovering = false;
-      render();
+      updateTooltip();
+    }
+  });
+  button.addEventListener('focus', () => {
+    focused = button.matches(':focus-visible');
+    dismissed = false;
+    updateTooltip();
+  });
+  button.addEventListener('blur', () => {
+    focused = false;
+    pinned = false;
+    updateTooltip();
+  });
+  button.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      pinned = false;
+      dismissed = true;
+      updateTooltip();
     }
   });
   return render;

@@ -33,11 +33,29 @@
               <div><span class="small-label">THE MAIN EVENT</span><h2>Center Parcs <span>2026</span></h2></div>
               <span class="date-stamp">07 DEC <i>✳</i></span>
             </div>
-            <button class="timer timer-primary" type="button" data-countdown="arrival" aria-pressed="false" aria-describedby="timer-hint">
-              <span class="timer-display" data-display></span>
-              <span class="timer-ended" data-ended hidden>The adventure is here.</span>
-            </button>
-            <div class="timer-footer"><span id="timer-hint">HOVER OR TAP TO SEE THE DAYS</span><span>10:00 AM · UK TIME</span></div>
+            <div class="timer-wrap">
+              <button class="timer timer-primary" type="button" data-countdown="arrival" aria-describedby="arrival-tooltip">
+                <span class="timer-display" data-display></span>
+                <span class="timer-ended" data-ended hidden>The adventure is here.</span>
+              </button>
+              <span class="timer-tooltip" id="arrival-tooltip" role="tooltip" hidden></span>
+            </div>
+            <div class="timer-footer">10:00 AM · UK TIME</div>
+
+            <section class="guest-arrival" aria-labelledby="guest-title">
+              <div class="guest-heading">
+                <div><span class="small-label">DURING OUR STAY</span><h3 id="guest-title">More guests join us</h3></div>
+                <span class="date-stamp">10 DEC <i>✳</i></span>
+              </div>
+              <div class="timer-wrap">
+                <button class="timer timer-secondary" type="button" data-countdown="second" aria-describedby="guest-tooltip">
+                  <span class="timer-display" data-display></span>
+                  <span class="timer-ended" data-ended hidden>Our guests are here.</span>
+                </button>
+                <span class="timer-tooltip" id="guest-tooltip" role="tooltip" hidden></span>
+              </div>
+              <div class="timer-footer">10:00 AM · UK TIME</div>
+            </section>
           </div>
         </div>
 
@@ -70,24 +88,9 @@
             <g color="#173c33"><use href="#tree" x="19" y="417" transform="scale(.75)"/><use href="#tree" x="738" y="389" transform="scale(.83)"/></g>
             <path d="M263 700q20-68 42-112m5 112q8-56 2-112" fill="none" stroke="#ccd9cd" stroke-width="4" opacity=".8"/>
           </svg>
-          <div class="art-bottom"><span>FIND US WHERE THE PINES ARE</span><span>✳</span><span>WINTER WONDERLAND</span></div>
         </div>
-      </section>
-
-      <section class="second-event" aria-labelledby="second-title">
-        <div class="second-intro"><span class="small-label">AND THEN, A LITTLE MORE MAGIC</span><h2 id="second-title">Another day<br><em>to look forward to.</em></h2></div>
-        <div class="second-countdown">
-          <div class="second-top"><span>THE NEXT LITTLE MOMENT</span><span>10 DECEMBER 2026 · 10:00 AM UK</span></div>
-          <button class="timer timer-secondary" type="button" data-countdown="second" aria-pressed="false" aria-describedby="second-hint">
-            <span class="timer-display" data-display></span>
-            <span class="timer-ended" data-ended hidden>The day is here.</span>
-          </button>
-          <span class="second-hint" id="second-hint">HOVER OR TAP TO SEE THE DAYS ↗</span>
-        </div>
-        <div class="second-mark" aria-hidden="true">✳</div>
       </section>
     </main>
-    <footer><span>MADE FOR THE MOMENTS IN BETWEEN</span><span>SEE YOU IN THE WOODS <span>✳</span></span></footer>
   </div>
 </body>
 </html>
