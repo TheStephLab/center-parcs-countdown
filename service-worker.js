@@ -1,5 +1,5 @@
-const CACHE = 'winter-countdown-v2';
-const ASSETS = ['./', './index.html', './style.css', './app.js', './countdown.js', './favicon.svg'];
+const CACHE = 'winter-countdown-v3';
+const ASSETS = ['./', './index.html', './style.css?v=2', './app.js?v=2', './countdown.js', './favicon.svg'];
 const assetUrls = new Set(ASSETS.map(path => new URL(path, self.registration.scope).href));
 
 self.addEventListener('install', event => {
